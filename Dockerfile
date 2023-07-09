@@ -65,6 +65,12 @@ RUN python3 -m pip install --upgrade pip && \
     "${SRC}/ci/run_build.sh" && \
     ls -lah "${SRC}/dist"
 
+FROM debian:buster-slim
+
+WORKDIR /tini
+
+COPY --from=builder /tini/dist /tini/dist
+
 VOLUME /dist
 
 CMD cp -rf dist/* /dist/
